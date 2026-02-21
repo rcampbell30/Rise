@@ -1,0 +1,18 @@
+name: Production Bundle Guard
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+jobs:
+  check-debug-markers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify production bundle does not include debug markers
+        run: node scripts/check-production-bundle.mjs assets/index-bdojs8c3.js
